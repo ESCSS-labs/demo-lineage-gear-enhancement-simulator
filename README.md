@@ -1,6 +1,6 @@
 # 天堂衝裝模擬器
 
-目的：使用 ESCSS 重構早期的 [side project](https://github.com/MikeLee0358/lineage)，並比較成果差異。
+目的：使用 ESCSS 重構早期的版本，並比較成果差異。
 
 ## 線上 Demo
 
@@ -9,11 +9,13 @@
 
 ## 技術使用
 
-- [ESCSS](https://github.com/ESCSS-labs)
-- Nuxt3 (早期版本為 Vue)
+- ESCSS
+- Nuxt 3 (早期版本為 Vue 3)
 - playwright (早期版本為 Cypress)
 - Sass/SCSS
 - Pinia
+
+[早期 Vue 3 版本](https://github.com/MikeLee0358/lineage)
 
 ## 差異比較
 
