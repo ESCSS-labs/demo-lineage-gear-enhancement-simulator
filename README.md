@@ -1,75 +1,24 @@
-# Nuxt Minimal Starter
+# 天堂衝裝模擬器
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+目的：使用 ESCSS 重構早期的 [side project](https://github.com/MikeLee0358/lineage)，並比較成果差異。
 
-## Setup
+## 線上 Demo
 
-Make sure to install dependencies:
+早期：
+https://mikelee0358.github.io/LineageEmulator/#
 
-```bash
-# npm
-npm install
+重構後：
 
-# pnpm
-pnpm install
+## 技術使用
 
-# yarn
-yarn install
+- [ESCSS](https://github.com/ESCSS-labs)
+- Nuxt3 (早期版本為 Vue)
+- playwright (早期版本為 Cypress)
+- Sass/SCSS
+- Pinia
 
-# bun
-bun install
-```
+## 差異比較
 
-## Development Server
+## 心得
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+重構時，由於有清晰的結構 HTML/Javascript 的結構，所以很容易找出盲點來做優化。由於早期的作品很發散，所以是亂亂的程式碼，感覺心情很阿雜，重構後體感舒服多了。

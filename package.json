@@ -2,16 +2,27 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "e2e": "playwright test",
+    "format": "prettier . --write --cache"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.5",
     "nuxt": "^3.13.2",
+    "nuxt-escss-estest": "^1.3.5",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.1",
+    "@types/node": "^22.7.9",
+    "prettier": "^3.3.3",
+    "sass-embedded": "^1.80.4"
   }
 }
