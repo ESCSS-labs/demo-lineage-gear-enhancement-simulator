@@ -13,7 +13,7 @@
     "format": "prettier . --write --cache"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.5.5",
+    "@pinia/nuxt": "^0.7.0",
     "nuxt": "^3.13.2",
     "nuxt-escss-estest": "^1.4.8",
     "vue": "latest",
