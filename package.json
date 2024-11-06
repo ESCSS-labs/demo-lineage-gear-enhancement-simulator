@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.48.2",
-    "@types/node": "^22.7.9",
+    "@types/node": "^22.9.0",
     "prettier": "^3.3.3",
     "sass-embedded": "^1.80.6"
   }
