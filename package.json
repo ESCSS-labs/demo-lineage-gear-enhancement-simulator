@@ -20,9 +20,9 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.1",
+    "@playwright/test": "^1.48.2",
     "@types/node": "^22.7.9",
     "prettier": "^3.3.3",
-    "sass-embedded": "^1.80.4"
+    "sass-embedded": "^1.80.6"
   }
 }
