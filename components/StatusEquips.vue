@@ -110,9 +110,9 @@ ${equip.occupation}`;
         knightStore.getGameChatEvent("toBeDeathKnight");
       }
 
-      algorithmStore.out.updateData(equip);
+      algorithmStore.updateData(equip);
 
-      algorithmStore.out.doAlgorithm(equip, event);
+      algorithmStore.doAlgorithm(equip, event);
       updateEquipValue();
     },
   },
