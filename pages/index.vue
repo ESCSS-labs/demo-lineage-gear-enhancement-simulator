@@ -15,7 +15,7 @@
     <audio
       autoplay="autoplay"
       loop="loop"
-      :src="audioStore.out.getRoleAudioUrl()"
+      :src="audioStore.getRoleAudioUrl()"
     ></audio>
   </main>
 </template>
