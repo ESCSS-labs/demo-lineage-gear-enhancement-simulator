@@ -7,116 +7,110 @@ export const useChatStore = defineStore("chat", () => {
   const scrollStore = useScrollStore();
   const algorithmStore = useAlgorithmStore();
 
-  const chat = {
-    data: reactive({
-      lines: Array(7),
-    }),
-    in: {
-      reuse: {
-        pushAndShiftArray: (text) => {
-          {
-            ESTest(text, "string");
-          }
+  const data = reactive({
+    lines: Array(7),
+  })
 
-          chat.data.lines.push(text);
-          chat.data.lines.shift();
-        },
-        showNumber: () => {
-          {
-            ESTest(algorithmStore.data.target.value, "number");
-          }
+  function pushAndShiftArray (text) {
+    {
+    ESTest(text, "string");
+  }
 
-          return algorithmStore.data.target.value < 0
-            ? algorithmStore.data.target.value
-            : `+${algorithmStore.data.target.value}`;
-        },
-        detectColor: () => {
-          if (scrollStore.getIsScrollType("cursed")) {
-            return "黑色的";
-          } else if (algorithmStore.out.getIsCategoryType("weapon")) {
-            return "藍色的";
-          } else {
-            return "銀色的";
-          }
-        },
-      },
-      updateArmor: () => {
-        chat.in.reuse.pushAndShiftArray("請選擇一種防具。");
-      },
-      updateWeapon: () => {
-        chat.in.reuse.pushAndShiftArray("請選擇一種武器。");
-      },
-      updateForOne: () => {
-        {
-          ESTest(algorithmStore.data.target.name, "string");
-        }
+  data.lines.push(text);
+  data.lines.shift();
+}
+  function showNumber() {
+    {
+      ESTest(algorithmStore.data.target.value, "number");
+    }
 
-        chat.in.reuse.pushAndShiftArray(
-          `${chat.in.reuse.showNumber()} ${
-            algorithmStore.data.target.name
-          } 一瞬間發出 ${chat.in.reuse.detectColor()} 光芒。`,
-        );
-      },
-      updateForGone: () => {
-        chat.in.reuse.pushAndShiftArray(
-          `${chat.in.reuse.showNumber()} ${
-            algorithmStore.data.target.name
-          } 產生激烈的 ${chat.in.reuse.detectColor()} 光芒，一會兒後就消失了。`,
-        );
-      },
-      updateForNope: () => {
-        chat.in.reuse.pushAndShiftArray(
-          `${chat.in.reuse.showNumber()} ${
-            algorithmStore.data.target.name
-          } 持續發出 激烈的 ${chat.in.reuse.detectColor()}光芒，但是沒有任何事情發生。`,
-        );
-      },
-      updateForTwoUp: () => {
-        {
-          ESTest(algorithmStore.data.target.name, "string");
-        }
+    return algorithmStore.data.target.value < 0
+      ? algorithmStore.data.target.value
+      : `+${algorithmStore.data.target.value}`;
+  }
+  function detectColor() {
+    if (scrollStore.getIsScrollType("cursed")) {
+      return "黑色的";
+    } else if (algorithmStore.out.getIsCategoryType("weapon")) {
+      return "藍色的";
+    } else {
+      return "銀色的";
+    }
+  }
 
-        chat.in.reuse.pushAndShiftArray(
-          `${chat.in.reuse.showNumber()} ${
-            algorithmStore.data.target.name
-          } 持續發出 ${chat.in.reuse.detectColor()} 光芒。`,
-        );
-      },
-    },
-    out: {
-      updateChatScroll: () => {
-        {
-          ESTest(scrollStore.data.targetScroll, "string");
-        }
+  function updateArmor() {
+    pushAndShiftArray("請選擇一種防具。");
+  }
+  function updateWeapon() {
+    pushAndShiftArray("請選擇一種武器。");
+  }
+  function updateForOne() {
+    {
+      ESTest(algorithmStore.data.target.name, "string");
+    }
 
-        if (scrollStore.data.targetScroll === "none") return;
+    pushAndShiftArray(
+      `${showNumber()} ${algorithmStore.data.target.name
+      } 一瞬間發出 ${detectColor()} 光芒。`,
+    );
+  }
+  function updateForGone() {
+    pushAndShiftArray(
+      `${showNumber()} ${algorithmStore.data.target.name
+      } 產生激烈的 ${detectColor()} 光芒，一會兒後就消失了。`,
+    );
+  }
+  function updateForNope() {
+    pushAndShiftArray(
+      `${showNumber()} ${algorithmStore.data.target.name
+      } 持續發出 激烈的 ${detectColor()}光芒，但是沒有任何事情發生。`,
+    );
+  }
+  function updateForTwoUp() {
+    {
+      ESTest(algorithmStore.data.target.name, "string");
+    }
 
-        if (scrollStore.data.targetScroll.includes("Armor")) {
-          chat.in.updateArmor();
-        } else if (scrollStore.data.targetScroll.includes("Weapon")) {
-          chat.in.updateWeapon();
-        }
-      },
-      updateChatState: () => {
-        {
-          ESTest(algorithmStore.data.dice.state, "number");
-        }
+    pushAndShiftArray(
+      `${showNumber()} ${algorithmStore.data.target.name
+      } 持續發出 ${detectColor()} 光芒。`,
+    );
+  }
 
-        if (algorithmStore.data.dice.state === -1) {
-          chat.in.updateForNope();
-        } else if (algorithmStore.data.dice.state === 0) {
-          chat.in.updateForGone();
-        } else if (algorithmStore.data.dice.state === 1) {
-          chat.in.updateForOne();
-        } else {
-          chat.in.updateForTwoUp();
-        }
-      },
-    },
-  };
+  function updateChatScroll() {
+    {
+      ESTest(scrollStore.data.targetScroll, "string");
+    }
 
-  return {
-    data: chat.data,
-    out: chat.out,
-  };
+    if (scrollStore.data.targetScroll === "none") return;
+
+    if (scrollStore.data.targetScroll.includes("Armor")) {
+      updateArmor();
+    } else if (scrollStore.data.targetScroll.includes("Weapon")) {
+      updateWeapon();
+    }
+  }
+  function updateChatState() {
+    {
+      ESTest(algorithmStore.data.dice.state, "number");
+    }
+
+    if (algorithmStore.data.dice.state === -1) {
+      updateForNope();
+    } else if (algorithmStore.data.dice.state === 0) {
+      updateForGone();
+    } else if (algorithmStore.data.dice.state === 1) {
+      updateForOne();
+    } else {
+      updateForTwoUp();
+    }
+  }
+
+
+
+return {
+  data,
+  updateChatScroll,
+  updateChatState
+};
 });

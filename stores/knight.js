@@ -143,7 +143,7 @@ export const useKnightStore = defineStore("knight", () => {
     });
   }
   return {
-    data: data,
+    data,
     getGameChatEvent,
     repeatTalkChatEvent
   };

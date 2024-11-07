@@ -48,7 +48,7 @@ const ItemsUI = {
             }
 
             scrollStore.changeScroll(classOrKey);
-            chatStore.out.updateChatScroll();
+            chatStore.updateChatScroll();
             ItemsUI.in.getSlotColor(slot.firstChild.src);
             slot.classList.add("--active");
             slot.lastElementChild.style.opacity = 1;

@@ -48,7 +48,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           scrollStore.data.targetScroll = "none";
         },
         handleUpdate: () => {
-          chatStore.out.updateChatState();
+          chatStore.updateChatState();
           algorithm.in.updateEquipValue();
           algorithm.in.reuse.resetAtTheEnd();
         },
@@ -94,7 +94,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               break;
           }
 
-          chatStore.out.updateChatState();
+          chatStore.updateChatState();
           algorithm.in.reuse.resetAtTheEnd();
 
           function isSuccessIn(array) {
@@ -124,7 +124,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
 
         algorithm.data.dice.state = 0;
         algorithm.data.target.value = 0;
-        chatStore.out.updateChatState();
+        chatStore.updateChatState();
         getEquipGoneEffect();
         algorithm.in.reuse.resetAtTheEnd();
 
