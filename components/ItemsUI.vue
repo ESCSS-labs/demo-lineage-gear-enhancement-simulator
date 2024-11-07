@@ -6,11 +6,7 @@
       :key="slot.id"
       :class="slot.hotkey"
     >
-      <img
-        id="🔥ItemsUI__X__Img"
-        :src="roleStore.getPath(slot.src)"
-        :alt="roleStore.getPath(slot.description)"
-      />
+      <img id="🔥ItemsUI__X__Img" :src="slot.src" :alt="slot.description" />
       <figcaption id="🔥ItemsUI__X__X">
         <h1 id="🔥ItemsUI__X__X__H1">{{ slot.name }}</h1>
         <p id="🔥ItemsUI__X__X__P">{{ slot.description }}</p>
@@ -21,7 +17,6 @@
 
 <script setup>
 const { data: source } = useFetch("/api/slot");
-const roleStore = useRoleStore();
 const chatStore = useChatStore();
 const scrollStore = useScrollStore();
 

@@ -6,7 +6,7 @@
       :key="equip.id"
       :class="equip.category"
       :style="{
-        backgroundImage: `url(${roleStore.getPath(equip.src)})`,
+        backgroundImage: `url(${equip.src})`,
       }"
       @click.stop="getDataForAlgorithm(equip, $event)"
       :data-displayEquipInfo="getEquipInfo(equip)"
@@ -22,9 +22,9 @@ const knightStore = useKnightStore();
 
 function changeCursor() {
   if (scrollStore.data.targetScroll === "none") {
-    return `url(${roleStore.getPath("UI/UI_pointer.webp")}), auto`;
+    return `url("/UI/UI_pointer.webp"), auto`;
   } else {
-    return `url(${roleStore.getPath("UI/UI_target.webp")}), auto`;
+    return `url("/UI/UI_target.webp"), auto`;
   }
 }
 function getEquipInfo(equip) {
@@ -97,8 +97,9 @@ ${getMaterial()}`;
 }
 function getDataForAlgorithm(equip, event) {
   //event parameter is used for when equip was gone.
-  const updateEquipValue = () =>
+  function updateEquipValue() {
     setTimeout(() => (equip.value = algorithmStore.data.target.value), 0);
+  }
 
   if (equip.name === "點擊變身" && knightStore.data.isDeathKnight) {
     knightStore.data.isDeathKnight = false;

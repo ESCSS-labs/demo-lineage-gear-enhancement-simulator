@@ -78,19 +78,10 @@ export const useRoleStore = defineStore("role", () => {
     }
   }
 
-  function getPath(name) {
-    {
-      ESTest(name, "string");
-    }
-
-    return `/${name}`;
-  }
-
   return {
     data,
     currentData,
     getAC,
     calcEquipAttribute,
-    getPath,
   };
 });
