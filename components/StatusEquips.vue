@@ -21,12 +21,12 @@ const scrollStore = useScrollStore();
 const knightStore = useKnightStore();
 
 function changeCursor() {
-      if (scrollStore.data.targetScroll === "none") {
-        return `url(${roleStore.getPath("UI/UI_pointer.webp")}), auto`;
-      } else {
-        return `url(${roleStore.getPath("UI/UI_target.webp")}), auto`;
-      }
-    }
+  if (scrollStore.data.targetScroll === "none") {
+    return `url(${roleStore.getPath("UI/UI_pointer.webp")}), auto`;
+  } else {
+    return `url(${roleStore.getPath("UI/UI_target.webp")}), auto`;
+  }
+}
 function getEquipInfo(equip) {
   const showPlusOrMinus = (value) => (value >= 0 ? `+${value}` : value);
 

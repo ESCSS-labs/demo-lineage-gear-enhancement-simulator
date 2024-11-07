@@ -9,16 +9,16 @@ export const useChatStore = defineStore("chat", () => {
 
   const data = reactive({
     lines: Array(7),
-  })
+  });
 
-  function pushAndShiftArray (text) {
+  function pushAndShiftArray(text) {
     {
-    ESTest(text, "string");
-  }
+      ESTest(text, "string");
+    }
 
-  data.lines.push(text);
-  data.lines.shift();
-}
+    data.lines.push(text);
+    data.lines.shift();
+  }
   function showNumber() {
     {
       ESTest(algorithmStore.data.target.value, "number");
@@ -50,19 +50,22 @@ export const useChatStore = defineStore("chat", () => {
     }
 
     pushAndShiftArray(
-      `${showNumber()} ${algorithmStore.data.target.name
+      `${showNumber()} ${
+        algorithmStore.data.target.name
       } 一瞬間發出 ${detectColor()} 光芒。`,
     );
   }
   function updateForGone() {
     pushAndShiftArray(
-      `${showNumber()} ${algorithmStore.data.target.name
+      `${showNumber()} ${
+        algorithmStore.data.target.name
       } 產生激烈的 ${detectColor()} 光芒，一會兒後就消失了。`,
     );
   }
   function updateForNope() {
     pushAndShiftArray(
-      `${showNumber()} ${algorithmStore.data.target.name
+      `${showNumber()} ${
+        algorithmStore.data.target.name
       } 持續發出 激烈的 ${detectColor()}光芒，但是沒有任何事情發生。`,
     );
   }
@@ -72,7 +75,8 @@ export const useChatStore = defineStore("chat", () => {
     }
 
     pushAndShiftArray(
-      `${showNumber()} ${algorithmStore.data.target.name
+      `${showNumber()} ${
+        algorithmStore.data.target.name
       } 持續發出 ${detectColor()} 光芒。`,
     );
   }
@@ -106,11 +110,9 @@ export const useChatStore = defineStore("chat", () => {
     }
   }
 
-
-
-return {
-  data,
-  updateChatScroll,
-  updateChatState
-};
+  return {
+    data,
+    updateChatScroll,
+    updateChatState,
+  };
 });

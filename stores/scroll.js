@@ -5,7 +5,7 @@ export const useScrollStore = defineStore("scroll", () => {
   const data = reactive({
     targetScroll: "none",
     clickTimerId: 0,
-  })
+  });
   function changeScroll(string) {
     {
       ESTest(string, "string");
@@ -62,9 +62,7 @@ export const useScrollStore = defineStore("scroll", () => {
 
     if (data.targetScroll === "none") return;
 
-    return /(Armor)|(Weapon)/g
-      .exec(data.targetScroll)[0]
-      .toLocaleLowerCase();
+    return /(Armor)|(Weapon)/g.exec(data.targetScroll)[0].toLocaleLowerCase();
   }
   function clearClickScrollTimer() {
     {
@@ -79,6 +77,6 @@ export const useScrollStore = defineStore("scroll", () => {
     getIsScrollType,
     getScrollType,
     getScrollEquipType,
-    clearClickScrollTimer
+    clearClickScrollTimer,
   };
 });

@@ -5,7 +5,7 @@ export const useRoleStore = defineStore("role", () => {
   const data = reactive({
     data: {},
     currentRole: "knight", // depends on the VueRouter in RolesPage.vue Component
-  })
+  });
   function getTotalEquipsAC() {
     {
       ESTest(currentData().equips, "array");
@@ -91,6 +91,6 @@ export const useRoleStore = defineStore("role", () => {
     currentData,
     getAC,
     calcEquipAttribute,
-    getPath
+    getPath,
   };
 });

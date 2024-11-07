@@ -24,7 +24,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       value: 0,
       safetyValue: 0,
     },
-  })
+  });
 
   function getRandomStateOneTo(value) {
     {
@@ -32,9 +32,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       ESTest(data.dice.state, "number");
     }
 
-    data.dice.state = Number(
-      Math.floor(Math.random() * value) + 1,
-    );
+    data.dice.state = Number(Math.floor(Math.random() * value) + 1);
   }
   function resetAtTheEnd() {
     {
@@ -64,22 +62,19 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     //  1: +1 msg
 
     switch (true) {
-      case scrollStore.getIsScrollType("white") &&
-        isSuccessIn([1, 2]):
+      case scrollStore.getIsScrollType("white") && isSuccessIn([1, 2]):
         data.target.value++;
         data.dice.state = 1;
         knightStore.getGameChatEvent("weaponSuccess");
         break;
 
-      case scrollStore.getIsScrollType("cursed") &&
-        isSuccessIn([1, 2, 3]):
+      case scrollStore.getIsScrollType("cursed") && isSuccessIn([1, 2, 3]):
         data.target.value--;
         data.dice.state = 1;
         knightStore.getGameChatEvent("weaponSuccess");
         break;
 
-      case scrollStore.getIsScrollType("blessed") &&
-        isSuccessIn([1, 2, 3, 4]):
+      case scrollStore.getIsScrollType("blessed") && isSuccessIn([1, 2, 3, 4]):
         data.target.value++;
         data.dice.state = 1;
         knightStore.getGameChatEvent("weaponSuccess");
@@ -99,7 +94,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       return array.includes(data.dice.state);
     }
   }
-
 
   function getDiceValue() {
     {
@@ -169,10 +163,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       ESTest(data.target.category, "string");
     }
 
-    return data.target.category
-      .substring(0, 6)
-      .toLowerCase()
-      .trim();
+    return data.target.category.substring(0, 6).toLowerCase().trim();
   }
   function getDiceSuccessValue() {
     {
@@ -195,13 +186,10 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       //cursed: when +6 up use cursedScroll successValue will be 33%, to prevent this situation happened return 100%
 
       return (
-        (scrollStore.getIsScrollType("white") &&
-          data.target.value < 0) ||
-        (scrollStore.getIsScrollType("blessed") &&
-          data.target.value < 0) ||
+        (scrollStore.getIsScrollType("white") && data.target.value < 0) ||
+        (scrollStore.getIsScrollType("blessed") && data.target.value < 0) ||
         (scrollStore.getIsScrollType("cursed") &&
-          data.target.value >=
-          Math.abs(data.target.safetyValue))
+          data.target.value >= Math.abs(data.target.safetyValue))
       );
     }
   }
@@ -218,10 +206,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     //|0~8|:1/n * 100% (if(n<4) 25%)
     //|9up|:10%
 
-    if (
-      Math.abs(data.target.value) <
-      Math.abs(data.target.safetyValue)
-    ) {
+    if (Math.abs(data.target.value) < Math.abs(data.target.safetyValue)) {
       data.dice.successValue = 100 + data.dice.bonus;
     } else if (Math.abs(data.target.value) >= 9) {
       data.dice.successValue = 10 + data.dice.bonus;
@@ -229,8 +214,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       data.dice.successValue = 25 + data.dice.bonus;
     } else {
       data.dice.successValue =
-        (1 / Math.abs(data.target.value)) * 100 +
-        data.dice.bonus;
+        (1 / Math.abs(data.target.value)) * 100 + data.dice.bonus;
     }
   }
   function getWeaponSuccessValue() {
@@ -245,10 +229,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     //|0~8|:33.33%
     //|9up|:10%
 
-    if (
-      Math.abs(data.target.value) <
-      Math.abs(data.target.safetyValue)
-    ) {
+    if (Math.abs(data.target.value) < Math.abs(data.target.safetyValue)) {
       data.dice.successValue = 100 + data.dice.bonus;
     } else if (Math.abs(data.target.value) >= 9) {
       data.dice.successValue = 10 + data.dice.bonus;
@@ -268,10 +249,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     return data.dice.successValue >= data.dice.value;
   }
   function getIsMatchedScrollEquipType() {
-    return (
-      scrollStore.getScrollEquipType() ===
-      getTargetCategoryEquipType()
-    );
+    return scrollStore.getScrollEquipType() === getTargetCategoryEquipType();
   }
   function updateData(equip) {
     {
@@ -295,9 +273,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       ESTest(data.target.category, "string");
     }
 
-    return data.target.category
-      .toLowerCase()
-      .includes(text.toLowerCase());
+    return data.target.category.toLowerCase().includes(text.toLowerCase());
   }
   function doAlgorithm(equip, event) {
     {
@@ -356,6 +332,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     data,
     updateData,
     getIsCategoryType,
-    doAlgorithm
+    doAlgorithm,
   };
 });

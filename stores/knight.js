@@ -12,7 +12,7 @@ export const useKnightStore = defineStore("knight", () => {
     isDeathKnight: false,
     isShowGameChat: false,
     isStopFunction: false,
-  })
+  });
   function GameChatTime(second) {
     {
       ESTest(second, "number");
@@ -145,6 +145,6 @@ export const useKnightStore = defineStore("knight", () => {
   return {
     data,
     getGameChatEvent,
-    repeatTalkChatEvent
+    repeatTalkChatEvent,
   };
 });

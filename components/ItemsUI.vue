@@ -28,7 +28,7 @@ const scrollStore = useScrollStore();
 const data = reactive({
   cssColor: "",
   slotList: source,
-})
+});
 
 function handleClick(e) {
   // F5 ~F12
@@ -44,27 +44,27 @@ function handleKeyboard(e) {
   handleSlot(e.key);
 }
 function handleSlot(classOrKey, isRepeatState = false) {
-    //classOrKey required string F5 or F6 ... F12
-    const slots = Array.from(document.querySelector("#🔥ItemsUI").children);
+  //classOrKey required string F5 or F6 ... F12
+  const slots = Array.from(document.querySelector("#🔥ItemsUI").children);
 
-    slots.forEach((slot) => {
-      slot.classList.remove("--active");
-      slot.lastElementChild.style.opacity = 0;
+  slots.forEach((slot) => {
+    slot.classList.remove("--active");
+    slot.lastElementChild.style.opacity = 0;
 
-      if (slot.className === classOrKey) {
-        if (isRepeatState) {
-          scrollStore.data.clickTimerId = setInterval(function () {
-            scrollStore.changeScroll(classOrKey);
-          }, 750);
-        }
-
-        scrollStore.changeScroll(classOrKey);
-        chatStore.updateChatScroll();
-        getSlotColor(slot.firstChild.src);
-        slot.classList.add("--active");
-        slot.lastElementChild.style.opacity = 1;
+    if (slot.className === classOrKey) {
+      if (isRepeatState) {
+        scrollStore.data.clickTimerId = setInterval(function () {
+          scrollStore.changeScroll(classOrKey);
+        }, 750);
       }
-    });
+
+      scrollStore.changeScroll(classOrKey);
+      chatStore.updateChatScroll();
+      getSlotColor(slot.firstChild.src);
+      slot.classList.add("--active");
+      slot.lastElementChild.style.opacity = 1;
+    }
+  });
 }
 function getSlotColor(imgUrl) {
   //control primary colors to display text color through js logic

@@ -16,6 +16,6 @@ export const useAudioStore = defineStore("music", () => {
     }
   }
   return {
-    getRoleAudioUrl
+    getRoleAudioUrl,
   };
 });
