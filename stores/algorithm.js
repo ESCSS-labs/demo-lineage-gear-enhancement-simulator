@@ -70,27 +70,27 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               isSuccessIn([1, 2]):
               algorithm.data.target.value++;
               algorithm.data.dice.state = 1;
-              knightStore.out.getGameChatEvent("weaponSuccess");
+              knightStore.getGameChatEvent("weaponSuccess");
               break;
 
             case scrollStore.getIsScrollType("cursed") &&
               isSuccessIn([1, 2, 3]):
               algorithm.data.target.value--;
               algorithm.data.dice.state = 1;
-              knightStore.out.getGameChatEvent("weaponSuccess");
+              knightStore.getGameChatEvent("weaponSuccess");
               break;
 
             case scrollStore.getIsScrollType("blessed") &&
               isSuccessIn([1, 2, 3, 4]):
               algorithm.data.target.value++;
               algorithm.data.dice.state = 1;
-              knightStore.out.getGameChatEvent("weaponSuccess");
+              knightStore.getGameChatEvent("weaponSuccess");
               break;
 
             default:
               // failure situation
               algorithm.data.dice.state = -1;
-              knightStore.out.getGameChatEvent("weaponNope");
+              knightStore.getGameChatEvent("weaponNope");
               break;
           }
 
@@ -119,7 +119,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
         }
 
         if (Math.abs(algorithm.data.target.value) === 9) {
-          knightStore.out.getGameChatEvent("weaponFailure");
+          knightStore.getGameChatEvent("weaponFailure");
         }
 
         algorithm.data.dice.state = 0;

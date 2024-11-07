@@ -104,10 +104,10 @@ ${equip.occupation}`;
 
       if (equip.name === "點擊變身" && knightStore.data.isDeathKnight) {
         knightStore.data.isDeathKnight = false;
-        knightStore.out.getGameChatEvent("toBeKnight");
+        knightStore.getGameChatEvent("toBeKnight");
       } else if (equip.name === "點擊變身" && !knightStore.data.isDeathKnight) {
         knightStore.data.isDeathKnight = true;
-        knightStore.out.getGameChatEvent("toBeDeathKnight");
+        knightStore.getGameChatEvent("toBeDeathKnight");
       }
 
       algorithmStore.out.updateData(equip);

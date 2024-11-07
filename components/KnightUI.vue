@@ -15,7 +15,7 @@
 <script setup>
 const knightStore = useKnightStore();
 
-knightStore.out.repeatTalkChatEvent(15);
+knightStore.repeatTalkChatEvent(15);
 </script>
 
 <style lang="scss">

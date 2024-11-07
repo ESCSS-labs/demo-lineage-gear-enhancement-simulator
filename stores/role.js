@@ -45,10 +45,10 @@ export const useRoleStore = defineStore("role", () => {
     const totalEquipsAC = getTotalEquipsAC();
 
     if (roleAC - totalEquipsAC === -40) {
-      knightStore.out.getGameChatEvent("armor1");
+      knightStore.getGameChatEvent("armor1");
     }
     if (roleAC - totalEquipsAC === -45) {
-      knightStore.out.getGameChatEvent("armor2");
+      knightStore.getGameChatEvent("armor2");
     }
 
     return roleAC - totalEquipsAC;
