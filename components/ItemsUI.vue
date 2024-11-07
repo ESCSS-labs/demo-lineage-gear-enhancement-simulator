@@ -1,8 +1,8 @@
 <template>
-  <div id="🔥ItemsUI" @click.stop="ItemsUI.out.handleClick">
+  <div id="🔥ItemsUI" @click.stop="handleClick">
     <figure
       id="🔥ItemsUI__X"
-      v-for="slot in ItemsUI.data.slotList"
+      v-for="slot in data.slotList"
       :key="slot.id"
       :class="slot.hotkey"
     >
@@ -20,82 +20,75 @@
 </template>
 
 <script setup>
-const { data } = useFetch("/api/slot");
+const { data: source } = useFetch("/api/slot");
 const roleStore = useRoleStore();
 const chatStore = useChatStore();
 const scrollStore = useScrollStore();
 
-const ItemsUI = {
-  data: reactive({
-    cssColor: "",
-    slotList: data,
-  }),
-  in: {
-    reuse: {
-      handleSlot: (classOrKey, isRepeatState = false) => {
-        //classOrKey required string F5 or F6 ... F12
-        const slots = Array.from(document.querySelector("#🔥ItemsUI").children);
+const data = reactive({
+  cssColor: "",
+  slotList: source,
+})
 
-        slots.forEach((slot) => {
-          slot.classList.remove("--active");
-          slot.lastElementChild.style.opacity = 0;
+function handleClick(e) {
+  // F5 ~F12
+  const scrollClass = e.target.parentElement.classList[0];
 
-          if (slot.className === classOrKey) {
-            if (isRepeatState) {
-              scrollStore.data.clickTimerId = setInterval(function () {
-                scrollStore.changeScroll(classOrKey);
-              }, 750);
-            }
+  scrollStore.clearClickScrollTimer();
+  handleSlot(scrollClass, true);
+}
+function handleKeyboard(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  scrollStore.clearClickScrollTimer();
+  handleSlot(e.key);
+}
+function handleSlot(classOrKey, isRepeatState = false) {
+    //classOrKey required string F5 or F6 ... F12
+    const slots = Array.from(document.querySelector("#🔥ItemsUI").children);
 
+    slots.forEach((slot) => {
+      slot.classList.remove("--active");
+      slot.lastElementChild.style.opacity = 0;
+
+      if (slot.className === classOrKey) {
+        if (isRepeatState) {
+          scrollStore.data.clickTimerId = setInterval(function () {
             scrollStore.changeScroll(classOrKey);
-            chatStore.updateChatScroll();
-            ItemsUI.in.getSlotColor(slot.firstChild.src);
-            slot.classList.add("--active");
-            slot.lastElementChild.style.opacity = 1;
-          }
-        });
-      },
-    },
-    getSlotColor: (imgUrl) => {
-      //control primary colors to display text color through js logic
-      const color = {
-        grey: "#aaa9a9",
-        white: "#e8e8e8",
-        yellow: "#e9ee8b",
-        red: "#ff2424",
-      };
+          }, 750);
+        }
 
-      if (/blessed/g.test(imgUrl)) {
-        ItemsUI.data.cssColor = color.yellow;
-      } else if (/cursed/g.test(imgUrl)) {
-        ItemsUI.data.cssColor = color.red;
-      } else {
-        ItemsUI.data.cssColor = color.white;
+        scrollStore.changeScroll(classOrKey);
+        chatStore.updateChatScroll();
+        getSlotColor(slot.firstChild.src);
+        slot.classList.add("--active");
+        slot.lastElementChild.style.opacity = 1;
       }
-    },
-  },
-  out: {
-    handleClick: (e) => {
-      // F5 ~F12
-      const scrollClass = e.target.parentElement.classList[0];
+    });
+}
+function getSlotColor(imgUrl) {
+  //control primary colors to display text color through js logic
+  const color = {
+    grey: "#aaa9a9",
+    white: "#e8e8e8",
+    yellow: "#e9ee8b",
+    red: "#ff2424",
+  };
 
-      scrollStore.clearClickScrollTimer();
-      ItemsUI.in.reuse.handleSlot(scrollClass, true);
-    },
-    handleKeyboard: (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      scrollStore.clearClickScrollTimer();
-      ItemsUI.in.reuse.handleSlot(e.key);
-    },
-  },
-};
+  if (/blessed/g.test(imgUrl)) {
+    data.cssColor = color.yellow;
+  } else if (/cursed/g.test(imgUrl)) {
+    data.cssColor = color.red;
+  } else {
+    data.cssColor = color.white;
+  }
+}
 
 onMounted(() => {
-  document.addEventListener("keydown", ItemsUI.out.handleKeyboard);
+  document.addEventListener("keydown", handleKeyboard);
 });
 onBeforeRouteLeave(() => {
-  document.removeEventListener("keydown", ItemsUI.out.handleKeyboard);
+  document.removeEventListener("keydown", handleKeyboard);
 });
 </script>
 
@@ -126,7 +119,7 @@ onBeforeRouteLeave(() => {
   bottom: 100%;
   opacity: 0;
   font-size: clamp(12px, 2rem, 1.9vw);
-  color: v-bind("ItemsUI.data.cssColor");
+  color: v-bind("data.cssColor");
   padding: 0.4vw 0 0.2vw 0.3vw;
   background: rgba(0, 0, 0, 0.45);
   border: 0.3vw solid;
