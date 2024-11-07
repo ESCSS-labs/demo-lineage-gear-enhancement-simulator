@@ -8,8 +8,8 @@
     >
       <img
         id="🔥ItemsUI__X__Img"
-        :src="roleStore.out.getPath(slot.src)"
-        :alt="roleStore.out.getPath(slot.description)"
+        :src="roleStore.getPath(slot.src)"
+        :alt="roleStore.getPath(slot.description)"
       />
       <figcaption id="🔥ItemsUI__X__X">
         <h1 id="🔥ItemsUI__X__X__H1">{{ slot.name }}</h1>

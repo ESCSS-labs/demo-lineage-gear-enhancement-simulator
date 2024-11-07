@@ -5,7 +5,7 @@
       <li id="🔥NumbersUI__Line1__Exp">0.00%</li>
     </ul>
     <ul id="🔥NumbersUI__Line2">
-      <li id="🔥NumbersUI__Line2__Ac">{{ roleStore.out.getAC() }}</li>
+      <li id="🔥NumbersUI__Line2__Ac">{{ roleStore.getAC() }}</li>
       <li id="🔥NumbersUI__Line2__State">0</li>
     </ul>
   </div>

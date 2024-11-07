@@ -1,13 +1,13 @@
 <template>
   <ul id="🔥HealthUI">
     <li id="🔥HealthUI__Hp">
-      HP:{{ roleStore.out.currentData().basic.hp }}/{{
-        roleStore.out.currentData().basic.hp
+      HP:{{ roleStore.currentData().basic.hp }}/{{
+        roleStore.currentData().basic.hp
       }}
     </li>
     <li id="🔥HealthUI__Mp">
-      MP:{{ roleStore.out.currentData().basic.mp }}/{{
-        roleStore.out.currentData().basic.mp
+      MP:{{ roleStore.currentData().basic.mp }}/{{
+        roleStore.currentData().basic.mp
       }}
     </li>
   </ul>

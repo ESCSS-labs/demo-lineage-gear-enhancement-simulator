@@ -2,43 +2,43 @@
   <div id="🔥StatusNumbers">
     <ul id="🔥StatusNumbers__Level">
       <li id="🔥StatusNumbers__Level__Lv">
-        {{ roleStore.out.currentData().basic.lv }}
+        {{ roleStore.currentData().basic.lv }}
       </li>
       <li id="🔥StatusNumbers__Level__Exp">
-        {{ roleStore.out.currentData().basic.exp }}
+        {{ roleStore.currentData().basic.exp }}
       </li>
     </ul>
     <ul id="🔥StatusNumbers__Basic">
       <li id="🔥StatusNumbers__Basic__Li">
-        {{ roleStore.out.currentData().basic.hp }}/{{
-          roleStore.out.currentData().basic.hp
+        {{ roleStore.currentData().basic.hp }}/{{
+          roleStore.currentData().basic.hp
         }}
       </li>
       <li id="🔥StatusNumbers__Basic__Li">
-        {{ roleStore.out.currentData().basic.mp }}/{{
-          roleStore.out.currentData().basic.mp
+        {{ roleStore.currentData().basic.mp }}/{{
+          roleStore.currentData().basic.mp
         }}
       </li>
-      <li id="🔥StatusNumbers__Basic__Li">{{ roleStore.out.getAC() }}</li>
+      <li id="🔥StatusNumbers__Basic__Li">{{ roleStore.getAC() }}</li>
     </ul>
     <ul id="🔥StatusNumbers__Attributes">
       <li id="🔥StatusNumbers__Attributes__Li">
-        {{ roleStore.out.currentData().basic.str }}
+        {{ roleStore.currentData().basic.str }}
       </li>
       <li id="🔥StatusNumbers__Attributes__Li">
-        {{ roleStore.out.currentData().basic.dex }}
+        {{ roleStore.currentData().basic.dex }}
       </li>
       <li id="🔥StatusNumbers__Attributes__Li">
-        {{ roleStore.out.currentData().basic.con }}
+        {{ roleStore.currentData().basic.con }}
       </li>
       <li id="🔥StatusNumbers__Attributes__Li">
-        {{ roleStore.out.currentData().basic.int }}
+        {{ roleStore.currentData().basic.int }}
       </li>
       <li id="🔥StatusNumbers__Attributes__Li">
-        {{ roleStore.out.currentData().basic.wis }}
+        {{ roleStore.currentData().basic.wis }}
       </li>
       <li id="🔥StatusNumbers__Attributes__Li">
-        {{ roleStore.out.currentData().basic.cha }}
+        {{ roleStore.currentData().basic.cha }}
       </li>
     </ul>
     <li id="🔥StatusNumbers__Er">2</li>

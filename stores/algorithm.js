@@ -136,7 +136,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           revertEffect();
 
           function goneEffect() {
-            roleStore.out.calcEquipAttribute("minusAttribute", equip);
+            roleStore.calcEquipAttribute("minusAttribute", equip);
             toggleEquipHidden();
             equip.armor = 0;
           }
@@ -145,7 +145,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               toggleEquipHidden();
               equip.armor = tempArmor;
               equip.mr = tempMr;
-              roleStore.out.calcEquipAttribute("plusAttribute", equip);
+              roleStore.calcEquipAttribute("plusAttribute", equip);
             }, 3000);
           }
           function toggleEquipHidden() {

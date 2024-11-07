@@ -2,11 +2,11 @@
   <ul id="🔥StatusEquips">
     <li
       id="🔥StatusEquips__Equip"
-      v-for="equip in roleStore.out.currentData().equips"
+      v-for="equip in roleStore.currentData().equips"
       :key="equip.id"
       :class="equip.category"
       :style="{
-        backgroundImage: `url(${roleStore.out.getPath(equip.src)})`,
+        backgroundImage: `url(${roleStore.getPath(equip.src)})`,
       }"
       @click.stop="StatusEquips.out.getDataForAlgorithm(equip, $event)"
       :data-displayEquipInfo="StatusEquips.out.getEquipInfo(equip)"
@@ -24,9 +24,9 @@ const StatusEquips = {
   out: {
     changeCursor: () => {
       if (scrollStore.data.targetScroll === "none") {
-        return `url(${roleStore.out.getPath("UI/UI_pointer.webp")}), auto`;
+        return `url(${roleStore.getPath("UI/UI_pointer.webp")}), auto`;
       } else {
-        return `url(${roleStore.out.getPath("UI/UI_target.webp")}), auto`;
+        return `url(${roleStore.getPath("UI/UI_target.webp")}), auto`;
       }
     },
     getEquipInfo: (equip) => {

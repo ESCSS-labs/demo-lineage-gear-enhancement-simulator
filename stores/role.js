@@ -2,96 +2,95 @@ import { useKnightStore } from "./knight";
 
 export const useRoleStore = defineStore("role", () => {
   const knightStore = useKnightStore();
+  const data = reactive({
+    data: {},
+    currentRole: "knight", // depends on the VueRouter in RolesPage.vue Component
+  })
+  function getTotalEquipsAC() {
+    {
+      ESTest(currentData().equips, "array");
+    }
 
-  const role = {
-    data: reactive({
-      data: {},
-      currentRole: "knight", // depends on the VueRouter in RolesPage.vue Component
-    }),
-    in: {
-      getTotalEquipsAC: () => {
-        {
-          ESTest(role.out.currentData().equips, "array");
-        }
+    const roleEquips = currentData().equips;
+    let totalEquipsAC = 0;
 
-        const roleEquips = role.out.currentData().equips;
-        let totalEquipsAC = 0;
+    roleEquips.forEach((roleEquip) => {
+      const isArmor = computed(() => /armor/g.test(roleEquip.category));
+      const calcTotalEquipAC = computed(
+        () => (totalEquipsAC += roleEquip.armor + roleEquip.value),
+      );
 
-        roleEquips.forEach((roleEquip) => {
-          const isArmor = computed(() => /armor/g.test(roleEquip.category));
-          const calcTotalEquipAC = computed(
-            () => (totalEquipsAC += roleEquip.armor + roleEquip.value),
-          );
+      if (isArmor.value) {
+        calcTotalEquipAC.value;
+      }
+    });
 
-          if (isArmor.value) {
-            calcTotalEquipAC.value;
-          }
-        });
+    return totalEquipsAC;
+  }
+  function currentData() {
+    {
+      ESTest(data.data[data.currentRole], "object");
+    }
 
-        return totalEquipsAC;
-      },
-    },
-    out: {
-      currentData: () => {
-        {
-          ESTest(role.data.data[role.data.currentRole], "object");
-        }
+    return data.data[data.currentRole];
+  }
 
-        return role.data.data[role.data.currentRole];
-      },
-      getAC: () => {
-        {
-          ESTest(role.out.currentData().basic.ac, "number");
-          ESTest(role.in.getTotalEquipsAC(), "number");
-        }
+  function getAC() {
+    {
+      ESTest(currentData().basic.ac, "number");
+      ESTest(getTotalEquipsAC(), "number");
+    }
 
-        const roleAC = role.out.currentData().basic.ac;
-        const totalEquipsAC = role.in.getTotalEquipsAC();
+    const roleAC = currentData().basic.ac;
+    const totalEquipsAC = getTotalEquipsAC();
 
-        if (roleAC - totalEquipsAC === -40) {
-          knightStore.out.getGameChatEvent("armor1");
-        }
-        if (roleAC - totalEquipsAC === -45) {
-          knightStore.out.getGameChatEvent("armor2");
-        }
+    if (roleAC - totalEquipsAC === -40) {
+      knightStore.out.getGameChatEvent("armor1");
+    }
+    if (roleAC - totalEquipsAC === -45) {
+      knightStore.out.getGameChatEvent("armor2");
+    }
 
-        return roleAC - totalEquipsAC;
-      },
-      calcEquipAttribute: (string, equip) => {
-        {
-          ESTest(string, "string");
-          ESTest(equip, "object");
-        }
+    return roleAC - totalEquipsAC;
+  }
 
-        const equipToAttr = {
-          力量手套: "str",
-        };
+  function calcEquipAttribute(string, equip) {
+    {
+      ESTest(string, "string");
+      ESTest(equip, "object");
+    }
 
-        if (equip.isAttrEquip) {
-          const attr = equipToAttr[equip.name];
-          const plusAttr = computed(
-            () => (role.out.currentData().basic[attr] += equip.attribute[attr]),
-          );
-          const minusAttr = computed(
-            () => (role.out.currentData().basic[attr] -= equip.attribute[attr]),
-          );
+    const equipToAttr = {
+      力量手套: "str",
+    };
 
-          if (string === "plusAttribute") plusAttr.value;
-          else if (string === "minusAttribute") minusAttr.value;
-        }
-      },
-      getPath: (name) => {
-        {
-          ESTest(name, "string");
-        }
+    if (equip.isAttrEquip) {
+      const attr = equipToAttr[equip.name];
+      const plusAttr = computed(
+        () => (currentData().basic[attr] += equip.attribute[attr]),
+      );
+      const minusAttr = computed(
+        () => (currentData().basic[attr] -= equip.attribute[attr]),
+      );
 
-        return `/${name}`;
-      },
-    },
-  };
+      if (string === "plusAttribute") plusAttr.value;
+      else if (string === "minusAttribute") minusAttr.value;
+    }
+  }
+
+  function getPath(name) {
+    {
+      ESTest(name, "string");
+    }
+
+    return `/${name}`;
+  }
 
   return {
-    data: role.data,
-    out: role.out,
+    data,
+    currentData,
+    getAC,
+    calcEquipAttribute,
+    getPath
   };
 });
