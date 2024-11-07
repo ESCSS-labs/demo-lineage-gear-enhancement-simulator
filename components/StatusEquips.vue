@@ -8,8 +8,8 @@
       :style="{
         backgroundImage: `url(${roleStore.getPath(equip.src)})`,
       }"
-      @click.stop="StatusEquips.out.getDataForAlgorithm(equip, $event)"
-      :data-displayEquipInfo="StatusEquips.out.getEquipInfo(equip)"
+      @click.stop="getDataForAlgorithm(equip, $event)"
+      :data-displayEquipInfo="getEquipInfo(equip)"
     />
   </ul>
 </template>
@@ -20,103 +20,99 @@ const algorithmStore = useAlgorithmStore();
 const scrollStore = useScrollStore();
 const knightStore = useKnightStore();
 
-const StatusEquips = {
-  out: {
-    changeCursor: () => {
+function changeCursor() {
       if (scrollStore.data.targetScroll === "none") {
         return `url(${roleStore.getPath("UI/UI_pointer.webp")}), auto`;
       } else {
         return `url(${roleStore.getPath("UI/UI_target.webp")}), auto`;
       }
-    },
-    getEquipInfo: (equip) => {
-      const showPlusOrMinus = (value) => (value >= 0 ? `+${value}` : value);
+    }
+function getEquipInfo(equip) {
+  const showPlusOrMinus = (value) => (value >= 0 ? `+${value}` : value);
 
-      const getName = () => {
-        const getNameArmor =
-          () => `${showPlusOrMinus(equip.value)} ${equip.name} (使用中)
+  const getName = () => {
+    const getNameArmor =
+      () => `${showPlusOrMinus(equip.value)} ${equip.name} (使用中)
 防禦 ${equip.armor}${showPlusOrMinus(equip.value)}`;
 
-        const getNameWeapon = () =>
-          `${showPlusOrMinus(equip.value)} ${equip.name} (揮舞)
+    const getNameWeapon = () =>
+      `${showPlusOrMinus(equip.value)} ${equip.name} (揮舞)
 攻擊力 ${equip.attack.small}${showPlusOrMinus(equip.value)}/${
-            equip.attack.large
-          }${showPlusOrMinus(equip.value)}` + getIsTwoHandsWeapon();
+        equip.attack.large
+      }${showPlusOrMinus(equip.value)}` + getIsTwoHandsWeapon();
 
-        const getNameJewelry = () => {
-          if (
-            roleStore.data.currentRole === "knight" &&
-            equip.category.includes("right-ring")
-          ) {
-            return (equip.name = `點擊變身`);
-          } else {
-            return `${equip.name} (使用中)`;
-          }
-        };
+    const getNameJewelry = () => {
+      if (
+        roleStore.data.currentRole === "knight" &&
+        equip.category.includes("right-ring")
+      ) {
+        return (equip.name = `點擊變身`);
+      } else {
+        return `${equip.name} (使用中)`;
+      }
+    };
 
-        const getIsTwoHandsWeapon = () =>
-          /雙手武器/.test(equip.grip) ? "\n  雙手武器" : "";
+    const getIsTwoHandsWeapon = () =>
+      /雙手武器/.test(equip.grip) ? "\n  雙手武器" : "";
 
-        if (equip.category === "weapon") return getNameWeapon();
-        else if (equip.category.includes("armor")) return getNameArmor();
-        else if (equip.category.includes("jewelry")) return getNameJewelry();
+    if (equip.category === "weapon") return getNameWeapon();
+    else if (equip.category.includes("armor")) return getNameArmor();
+    else if (equip.category.includes("jewelry")) return getNameJewelry();
+  };
+
+  const getFeature = () => {
+    //Jewelries are not opened yet
+    const getFeatureText = () => {
+      const showMR = () => {
+        if (equip.mr === undefined) return "";
+
+        if (/cloak/.test(equip.category)) {
+          return showPlusOrMinus(equip.mr + equip.value * 2);
+        } else if (/helmet|bodyArmor/.test(equip.category)) {
+          return showPlusOrMinus(equip.mr + equip.value);
+        }
       };
-
-      const getFeature = () => {
-        //Jewelries are not opened yet
-        const getFeatureText = () => {
-          const showMR = () => {
-            if (equip.mr === undefined) return "";
-
-            if (/cloak/.test(equip.category)) {
-              return showPlusOrMinus(equip.mr + equip.value * 2);
-            } else if (/helmet|bodyArmor/.test(equip.category)) {
-              return showPlusOrMinus(equip.mr + equip.value);
-            }
-          };
-          return `可使用職業:
+      return `可使用職業:
 ${equip.occupation}
-  ${equip.feature} ${showMR()}`;
-        };
-        const getNoneFeatureText = () => `可使用職業:
+${equip.feature} ${showMR()}`;
+    };
+    const getNoneFeatureText = () => `可使用職業:
 ${equip.occupation}`;
 
-        if (!equip.feature) return getNoneFeatureText();
-        if (equip.category.includes("jewelry")) return "";
-        return getFeatureText();
-      };
+    if (!equip.feature) return getNoneFeatureText();
+    if (equip.category.includes("jewelry")) return "";
+    return getFeatureText();
+  };
 
-      const getMaterial = () => {
-        //Jewelries are not opened yet
-        if (equip.category.includes("jewelry")) return "";
-        return `材質:${equip.material}
-  重量 ${equip.weight}`;
-      };
+  const getMaterial = () => {
+    //Jewelries are not opened yet
+    if (equip.category.includes("jewelry")) return "";
+    return `材質:${equip.material}
+重量 ${equip.weight}`;
+  };
 
-      return `${getName()}
-  ${getFeature()}
-  ${getMaterial()}`;
-    },
-    getDataForAlgorithm: (equip, event) => {
-      //event parameter is used for when equip was gone.
-      const updateEquipValue = () =>
-        setTimeout(() => (equip.value = algorithmStore.data.target.value), 0);
+  return `${getName()}
+${getFeature()}
+${getMaterial()}`;
+}
+function getDataForAlgorithm(equip, event) {
+  //event parameter is used for when equip was gone.
+  const updateEquipValue = () =>
+    setTimeout(() => (equip.value = algorithmStore.data.target.value), 0);
 
-      if (equip.name === "點擊變身" && knightStore.data.isDeathKnight) {
-        knightStore.data.isDeathKnight = false;
-        knightStore.getGameChatEvent("toBeKnight");
-      } else if (equip.name === "點擊變身" && !knightStore.data.isDeathKnight) {
-        knightStore.data.isDeathKnight = true;
-        knightStore.getGameChatEvent("toBeDeathKnight");
-      }
+  if (equip.name === "點擊變身" && knightStore.data.isDeathKnight) {
+    knightStore.data.isDeathKnight = false;
+    knightStore.getGameChatEvent("toBeKnight");
+  } else if (equip.name === "點擊變身" && !knightStore.data.isDeathKnight) {
+    knightStore.data.isDeathKnight = true;
+    knightStore.getGameChatEvent("toBeDeathKnight");
+  }
 
-      algorithmStore.updateData(equip);
+  algorithmStore.updateData(equip);
 
-      algorithmStore.doAlgorithm(equip, event);
-      updateEquipValue();
-    },
-  },
-};
+  algorithmStore.doAlgorithm(equip, event);
+  updateEquipValue();
+}
 </script>
 
 <style lang="scss">
@@ -125,7 +121,7 @@ ${equip.occupation}`;
   inset: 0;
 
   &:hover {
-    cursor: v-bind("StatusEquips.out.changeCursor()");
+    cursor: v-bind("changeCursor()");
   }
 }
 
