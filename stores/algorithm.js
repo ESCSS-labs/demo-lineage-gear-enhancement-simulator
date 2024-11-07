@@ -66,21 +66,21 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           //  1: +1 msg
 
           switch (true) {
-            case scrollStore.out.getIsScrollType("white") &&
+            case scrollStore.getIsScrollType("white") &&
               isSuccessIn([1, 2]):
               algorithm.data.target.value++;
               algorithm.data.dice.state = 1;
               knightStore.out.getGameChatEvent("weaponSuccess");
               break;
 
-            case scrollStore.out.getIsScrollType("cursed") &&
+            case scrollStore.getIsScrollType("cursed") &&
               isSuccessIn([1, 2, 3]):
               algorithm.data.target.value--;
               algorithm.data.dice.state = 1;
               knightStore.out.getGameChatEvent("weaponSuccess");
               break;
 
-            case scrollStore.out.getIsScrollType("blessed") &&
+            case scrollStore.getIsScrollType("blessed") &&
               isSuccessIn([1, 2, 3, 4]):
               algorithm.data.target.value++;
               algorithm.data.dice.state = 1;
@@ -159,7 +159,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           ESTest(algorithm.data.dice.state, "number");
         }
 
-        if (scrollStore.out.getIsScrollType("cursed")) {
+        if (scrollStore.getIsScrollType("cursed")) {
           algorithm.data.target.value--;
         } else {
           algorithm.data.target.value += algorithm.data.dice.state;
@@ -196,11 +196,11 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           //cursed: when +6 up use cursedScroll successValue will be 33%, to prevent this situation happened return 100%
 
           return (
-            (scrollStore.out.getIsScrollType("white") &&
+            (scrollStore.getIsScrollType("white") &&
               algorithm.data.target.value < 0) ||
-            (scrollStore.out.getIsScrollType("blessed") &&
+            (scrollStore.getIsScrollType("blessed") &&
               algorithm.data.target.value < 0) ||
-            (scrollStore.out.getIsScrollType("cursed") &&
+            (scrollStore.getIsScrollType("cursed") &&
               algorithm.data.target.value >=
                 Math.abs(algorithm.data.target.safetyValue))
           );
@@ -270,7 +270,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       },
       getIsMatchedScrollEquipType: () => {
         return (
-          scrollStore.out.getScrollEquipType() ===
+          scrollStore.getScrollEquipType() ===
           algorithm.in.getTargetCategoryEquipType()
         );
       },
@@ -314,7 +314,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
         if (!algorithm.in.getIsMatchedScrollEquipType()) return;
 
         if (algorithm.in.getIsSuccess()) {
-          switch (scrollStore.out.getScrollType()) {
+          switch (scrollStore.getScrollType()) {
             case "blessed":
               if (algorithm.data.target.value < 3) {
                 algorithm.in.reuse.getRandomStateOneTo(3);

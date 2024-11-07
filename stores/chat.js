@@ -31,7 +31,7 @@ export const useChatStore = defineStore("chat", () => {
             : `+${algorithmStore.data.target.value}`;
         },
         detectColor: () => {
-          if (scrollStore.out.getIsScrollType("cursed")) {
+          if (scrollStore.getIsScrollType("cursed")) {
             return "黑色的";
           } else if (algorithmStore.out.getIsCategoryType("weapon")) {
             return "藍色的";

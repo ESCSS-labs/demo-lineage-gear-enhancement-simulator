@@ -43,11 +43,11 @@ const ItemsUI = {
           if (slot.className === classOrKey) {
             if (isRepeatState) {
               scrollStore.data.clickTimerId = setInterval(function () {
-                scrollStore.out.changeScroll(classOrKey);
+                scrollStore.changeScroll(classOrKey);
               }, 750);
             }
 
-            scrollStore.out.changeScroll(classOrKey);
+            scrollStore.changeScroll(classOrKey);
             chatStore.out.updateChatScroll();
             ItemsUI.in.getSlotColor(slot.firstChild.src);
             slot.classList.add("--active");
@@ -79,13 +79,13 @@ const ItemsUI = {
       // F5 ~F12
       const scrollClass = e.target.parentElement.classList[0];
 
-      scrollStore.out.clearClickScrollTimer();
+      scrollStore.clearClickScrollTimer();
       ItemsUI.in.reuse.handleSlot(scrollClass, true);
     },
     handleKeyboard: (e) => {
       e.preventDefault();
       e.stopPropagation();
-      scrollStore.out.clearClickScrollTimer();
+      scrollStore.clearClickScrollTimer();
       ItemsUI.in.reuse.handleSlot(e.key);
     },
   },
