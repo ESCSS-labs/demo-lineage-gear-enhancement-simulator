@@ -15,7 +15,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.7.0",
     "nuxt": "^3.13.2",
-    "nuxt-escss-estest": "^1.4.21",
+    "nuxt-escss-estest": "^1.4.25",
     "vue": "latest",
     "vue-router": "latest"
   },
